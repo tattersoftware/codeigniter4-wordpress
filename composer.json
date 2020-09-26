@@ -1,0 +1,60 @@
+{
+	"name": "tatter/files",
+	"description": "WordPress content management for CodeIgniter 4",
+	"keywords": [
+		"codeigniter",
+		"codeigniter4",
+		"wordpress",
+		"content",
+		"management"
+	],
+	"homepage": "https://github.com/tattersoftware/codeigniter4-wordpress",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Matthew Gatner",
+			"email": "mgatner@tattersoftware.com",
+			"homepage": "https://tattersoftware.com",
+			"role": "Developer"
+		}
+	],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/codeigniter4/CodeIgniter4"
+		}
+	],
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"require": {
+		"php" : ">=7.2"
+	},
+	"require-dev": {
+		"codeigniter4/codeigniter4": "dev-develop",
+		"fzaninotto/faker": "^1.9@dev",
+		"mikey179/vfsstream": "^1.6",
+		"phpunit/phpunit": "^8.5",
+		"phpstan/phpstan": "^0.12",
+		"squizlabs/php_codesniffer": "^3.5",
+		"codeigniter4/codeigniter4-standard": "^1.0",
+		"johnpbloch/wordpress-core": "^5.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"Tatter\\WordPress\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\Support\\": "tests/_support"
+		}
+	},
+	"scripts": {
+		"analyze": "phpstan analyze",
+		"style": "phpcs --standard=./vendor/codeigniter4/codeigniter4-standard/CodeIgniter4 src/ tests/",
+		"test": "phpunit",
+		"post-update-cmd": [
+			"composer dump-autoload"
+		]
+	}
+}
