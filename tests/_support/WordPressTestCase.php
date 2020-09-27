@@ -14,11 +14,11 @@ class WordPressTestCase extends CIUnitTestCase
 	protected $root;
 
 	/**
-	 * Path to the virtualized config file
+	 * Path to the virtualized WordPress config file
 	 *
 	 * @var string
 	 */
-	protected $configPath;
+	protected $WPConfig;
 
 	protected function setUp(): void
 	{
@@ -33,11 +33,16 @@ class WordPressTestCase extends CIUnitTestCase
 		vfsStream::copyFromFileSystem(HOMEPATH . 'vendor/johnpbloch/wordpress-core', $this->root);
 
 		// Inject our WordPress config file
-		$this->configPath = $this->root->url() . '/wp-config.php';
-		copy(SUPPORTPATH . 'wp-config.php', $this->configPath);
+		$this->WPConfig = $this->root->url() . '/wp-config.php';
+		copy(SUPPORTPATH . 'wp-config.php', $this->WPConfig);
 
-		// Use our test database configuration
-		Config::injectMock('Database', new Database());
+		// Set up our test database configuration
+		$config = config('Database');
+		$config->wordpress = [
+			'DBDriver' => 'Tatter\WordPress\Database',
+			'WPConfig' => SUPPORTPATH . 'wp-config.php',
+		];
+		Config::injectMock('Database', $config);
 	}
 
 	protected function tearDown(): void

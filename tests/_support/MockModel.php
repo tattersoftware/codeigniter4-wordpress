@@ -1,6 +1,6 @@
 <?php namespace Tests\Support;
 
-use Tatter\WordPress\BaseModel;
+use Tatter\WordPress\Models\BaseModel;
 
 class MockModel extends BaseModel
 {

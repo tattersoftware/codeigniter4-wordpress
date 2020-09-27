@@ -1,7 +1,5 @@
 <?php namespace Tatter\WordPress\Models;
 
-use Tatter\WordPress\BaseModel;
-
 class PostModel extends BaseModel
 {
 	protected $table      = 'posts';

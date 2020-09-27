@@ -10,7 +10,7 @@ parameters:
 		- src/Config/Routes.php
 		- src/Views/*
 	ignoreErrors:
-		- '#Access to an undefined property Tatter\\WordPress\\Config::\$[a-z]+#'
+		- '#Access to an undefined property Tatter\\WordPress\\Database\\ConfigReader::\$[a-z]+#'
 	scanDirectories:
 		- vendor/codeigniter4/codeigniter4/system/Helpers
 	dynamicConstantNames:

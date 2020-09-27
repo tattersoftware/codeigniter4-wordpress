@@ -1,6 +1,6 @@
 <?php
 
-use Tatter\WordPress\Connection;
+use Tatter\WordPress\Database\Connection;
 use Tests\Support\WordPressTestCase;
 
 class ConnectionTest extends WordPressTestCase

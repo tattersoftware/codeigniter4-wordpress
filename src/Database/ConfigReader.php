@@ -1,4 +1,4 @@
-<?php namespace Tatter\WordPress;
+<?php namespace Tatter\WordPress\Database;
 
 use CodeIgniter\Files\Exceptions\FileNotFoundException;
 use CodeIgniter\Files\File;
@@ -6,7 +6,7 @@ use CodeIgniter\Files\File;
 /**
  * Class to extract database values from wp-config.php
  */
-class Config
+class ConfigReader
 {
 	/**
 	 * Translation of WP to CI config
@@ -35,7 +35,7 @@ class Config
 	 *
 	 * @var array<string, mixed>
 	 */
-	protected $parsed = [];
+	protected $config = [];
 
 	/**
 	 * Parsed database configuration, compatible with
@@ -67,7 +67,7 @@ class Config
 	 */
 	public function toArray(): array
 	{
-		return $this->parsed;
+		return $this->config;
 	}
 
 	/**
@@ -88,7 +88,7 @@ class Config
 			$array = explode("'", $line);
 			if (count($array) === 5)
 			{
-				$this->parsed[$array[1]] = $array[3];
+				$this->config[$array[1]] = $array[3];
 			}
 		}
 
@@ -98,14 +98,14 @@ class Config
 			$array = explode("'", $lines[0]);
 			if (count($array) === 3)
 			{
-				$this->parsed['table_prefix'] = $array[1];
+				$this->config['table_prefix'] = $array[1];
 			}
 		}
 
 		// If no table prefix was detected then use the default
-		if (! isset($this->parsed['table_prefix']))
+		if (! isset($this->config['table_prefix']))
 		{
-			$this->parsed['table_prefix'] = 'wp_';
+			$this->config['table_prefix'] = 'wp_';
 		}
 
 		return $this;
@@ -118,9 +118,9 @@ class Config
 	{
 		foreach ($this->parseKeys as $from => $to)
 		{
-			if (isset($this->parsed[$from]))
+			if (isset($this->config[$from]))
 			{
-				$this->attributes[$to] = $this->parsed[$from];
+				$this->attributes[$to] = $this->config[$from];
 			}
 		}
 

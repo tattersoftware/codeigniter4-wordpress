@@ -1,4 +1,4 @@
-<?php namespace Tatter\WordPress;
+<?php namespace Tatter\WordPress\Models;
 
 use CodeIgniter\Model;
 
