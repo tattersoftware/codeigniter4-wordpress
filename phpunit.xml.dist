@@ -47,11 +47,14 @@
 		<!-- Directory containing the front controller (index.php) -->
 		<const name="PUBLICPATH" value="./vendor/codeigniter4/codeigniter4/public/"/>
 
-<!--	<env name="database.wordpress.hostname" value="localhost"/>  -->
-<!--	<env name="database.wordpress.database" value="tests"/>	     -->
-<!--	<env name="database.wordpress.username" value="tests_user"/> -->
-<!--	<env name="database.wordpress.password" value=""/>		     -->
-<!--	<env name="database.wordpress.DBDriver" value="MySQLi"/>	 -->
-<!--	<env name="database.wordpress.DBPrefix" value="tests_"/>	 -->
+		<!-- Database configuration -->
+		<env name="database.tests.database" value=":memory:"/>
+		<env name="database.tests.DBDriver" value="SQLite3"/>
+
+		<!-- WordPress database configuration -->
+		<env name="DB_NAME" value=""/>
+		<env name="DB_USER" value=""/>
+		<env name="DB_PASS" value=""/>
+		<env name="DB_HOST" value="localhost"/>
 	</php>
 </phpunit>
