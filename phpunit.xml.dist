@@ -52,9 +52,9 @@
 		<env name="database.tests.DBDriver" value="SQLite3"/>
 
 		<!-- WordPress database configuration -->
-		<env name="DB_NAME" value=""/>
-		<env name="DB_USER" value=""/>
+		<env name="DB_HOST" value="127.0.0.1"/>
+		<env name="DB_NAME" value="test"/>
+		<env name="DB_USER" value=root""/>
 		<env name="DB_PASS" value=""/>
-		<env name="DB_HOST" value="localhost"/>
 	</php>
 </phpunit>
