@@ -35,7 +35,7 @@ class ConfigReader
 	 *
 	 * @var array<string, mixed>
 	 */
-	protected $config = [];
+	protected $extracted = [];
 
 	/**
 	 * Parsed database configuration, compatible with
@@ -67,7 +67,7 @@ class ConfigReader
 	 */
 	public function toArray(): array
 	{
-		return $this->config;
+		return $this->attributes;
 	}
 
 	/**
@@ -88,7 +88,7 @@ class ConfigReader
 			$array = explode("'", $line);
 			if (count($array) === 5)
 			{
-				$this->config[$array[1]] = $array[3];
+				$this->extracted[$array[1]] = $array[3];
 			}
 		}
 
@@ -98,14 +98,14 @@ class ConfigReader
 			$array = explode("'", $lines[0]);
 			if (count($array) === 3)
 			{
-				$this->config['table_prefix'] = $array[1];
+				$this->extracted['table_prefix'] = $array[1];
 			}
 		}
 
 		// If no table prefix was detected then use the default
-		if (! isset($this->config['table_prefix']))
+		if (! isset($this->extracted['table_prefix']))
 		{
-			$this->config['table_prefix'] = 'wp_';
+			$this->extracted['table_prefix'] = 'wp_';
 		}
 
 		return $this;
@@ -118,9 +118,9 @@ class ConfigReader
 	{
 		foreach ($this->parseKeys as $from => $to)
 		{
-			if (isset($this->config[$from]))
+			if (isset($this->extracted[$from]))
 			{
-				$this->attributes[$to] = $this->config[$from];
+				$this->attributes[$to] = $this->extracted[$from];
 			}
 		}
 

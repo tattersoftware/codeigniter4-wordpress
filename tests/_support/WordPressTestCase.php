@@ -23,7 +23,6 @@ class WordPressTestCase extends CIUnitTestCase
 	protected function setUp(): void
 	{
 		parent::setUp();
-
 		Config::reset();
 
 		// Start the virtual filesystem
@@ -36,12 +35,9 @@ class WordPressTestCase extends CIUnitTestCase
 		$this->WPConfig = $this->root->url() . '/wp-config.php';
 		copy(SUPPORTPATH . 'wp-config.php', $this->WPConfig);
 
-		// Set up our test database configuration
+		// For general testing we bypass our own driver and use MySQLi directly
 		$config = config('Database');
-		$config->wordpress = [
-			'DBDriver' => 'Tatter\WordPress\Database',
-			'WPConfig' => SUPPORTPATH . 'wp-config.php',
-		];
+		$config->wordpress = $config->tests;
 		Config::injectMock('Database', $config);
 	}
 

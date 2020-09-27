@@ -17,8 +17,10 @@ class PostModelTest extends WordPressTestCase
 		$this->model = new PostModel();
 	}
 
-	public function testGetsDatabase()
+	public function testGetsFields()
 	{
+		$result = $this->model->findAll();
+
 		$this->assertTrue(true);
 	}
 }
