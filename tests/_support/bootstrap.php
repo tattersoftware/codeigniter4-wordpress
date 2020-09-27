@@ -18,4 +18,6 @@ require_once ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'wp-includes' . DIRECT
 
 $result = wp_get_db_schema();
 
+require_once HOMEPATH . 'vendor/codeigniter4/codeigniter4/system/Test/bootstrap.php';
+
 var_dump($result);
