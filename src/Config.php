@@ -95,8 +95,8 @@ class Config
 		// Grab the table prefix as well
 		if ($matched = preg_grep("/^\$table_prefix/", $lines))
 		{
-			$array = explode("'", $line);
-			if (count($explode) === 3)
+			$array = explode("'", $lines[0]);
+			if (count($array) === 3)
 			{
 				$this->parsed['table_prefix'] = $array[1];
 			}
