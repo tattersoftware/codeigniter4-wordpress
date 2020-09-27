@@ -1,9 +1,9 @@
 <?php
 
-use Tatter\WordPress\Parser;
+use Tatter\WordPress\Config;
 use Tests\Support\WordPressTestCase;
 
-class ParserTest extends WordPressTestCase
+class ConfigTest extends WordPressTestCase
 {
 	/**
 	 * @var string
@@ -14,14 +14,14 @@ class ParserTest extends WordPressTestCase
 	{
 		parent::setUp();
 
-		// Locate the config file
+		// Locate the sample config file
 		$this->path = $this->root->url() . '/wp-config-sample.php';
 	}
 
 	public function testParsesFile()
 	{
-		$parser = new Parser($this->path);
+		$config = new Config($this->path);
 
-		$this->assertTrue(true);
+		$this->assertEquals('database_name_here', $config->database);
 	}
 }
