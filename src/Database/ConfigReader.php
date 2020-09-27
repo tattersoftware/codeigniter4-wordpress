@@ -31,23 +31,15 @@ class ConfigReader
 	protected $file;
 
 	/**
-	 * Array of extracted values.
-	 *
-	 * @var array<string, mixed>
-	 */
-	protected $config = [];
-
-	/**
-	 * Parsed database configuration, compatible with
-	 * app/Config/Database.php
+	 * The extracted values
 	 *
 	 * @var array<string, mixed>
 	 */
 	protected $attributes = [];
 
 	/**
-	 * Verifies the config path, and loads it into a File, and
-	 * parses out the database values.
+	 * Verifies the config path, loads it into a File, and
+	 * parses out the values.
 	 *
 	 * @param string $path
 	 * @throws FileNotFoundException
@@ -56,18 +48,26 @@ class ConfigReader
 	{
 		$this->file = new File($path, true);
 
-		$this->parse()->convert();
+		$this->parse();
 	}
 
 	/**
-	 * Return parsed database configuration, compatible with
-	 * app/Config/Database.php
+	 * Returns translated keys compatible with app/Config/Database.php
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function toArray(): array
+	public function toParams(): array
 	{
-		return $this->config;
+		$return = [];
+		foreach ($this->parseKeys as $from => $to)
+		{
+			if (isset($this->attributes[$from]))
+			{
+				$return[$to] = $this->attributes[$from];
+			}
+		}
+
+		return $return;
 	}
 
 	/**
@@ -88,7 +88,7 @@ class ConfigReader
 			$array = explode("'", $line);
 			if (count($array) === 5)
 			{
-				$this->config[$array[1]] = $array[3];
+				$this->attributes[$array[1]] = $array[3];
 			}
 		}
 
@@ -98,30 +98,14 @@ class ConfigReader
 			$array = explode("'", $lines[0]);
 			if (count($array) === 3)
 			{
-				$this->config['table_prefix'] = $array[1];
+				$this->attributes['table_prefix'] = $array[1];
 			}
 		}
 
 		// If no table prefix was detected then use the default
-		if (! isset($this->config['table_prefix']))
+		if (! isset($this->attributes['table_prefix']))
 		{
-			$this->config['table_prefix'] = 'wp_';
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Converts parsed WordPress keys to CodeIgniter ones.
-	 */
-	protected function convert()
-	{
-		foreach ($this->parseKeys as $from => $to)
-		{
-			if (isset($this->config[$from]))
-			{
-				$this->attributes[$to] = $this->config[$from];
-			}
+			$this->attributes['table_prefix'] = 'wp_';
 		}
 
 		return $this;
