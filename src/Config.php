@@ -67,7 +67,7 @@ class Config
 	 */
 	public function toArray(): array
 	{
-		return $this->config;
+		return $this->parsed;
 	}
 
 	/**

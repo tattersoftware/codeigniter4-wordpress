@@ -5,23 +5,10 @@ use Tests\Support\WordPressTestCase;
 
 class ConfigTest extends WordPressTestCase
 {
-	/**
-	 * @var string
-	 */
-	protected $path;
-
-	protected function setUp(): void
-	{
-		parent::setUp();
-
-		// Locate the sample config file
-		$this->path = $this->root->url() . '/wp-config-sample.php';
-	}
-
 	public function testParsesFile()
 	{
-		$config = new Config($this->path);
+		$config = new Config($this->configPath);
 
-		$this->assertEquals('database_name_here', $config->database);
+		$this->assertEquals('testing_database', $config->database);
 	}
 }
