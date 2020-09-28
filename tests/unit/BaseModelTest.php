@@ -1,12 +1,12 @@
 <?php
 
-use Tatter\WordPress\Models\PostModel;
+use Tests\Support\MockModel;
 use Tests\Support\WordPressTestCase;
 
-class PostModelTest extends WordPressTestCase
+class BaseModelTest extends WordPressTestCase
 {
 	/**
-	 * @var PostModel
+	 * @var MockModel
 	 */
 	protected $model;
 
@@ -14,7 +14,7 @@ class PostModelTest extends WordPressTestCase
 	{
 		parent::setUp();
 
-		$this->model = new PostModel();
+		$this->model = new MockModel();
 	}
 
 	public function testGetsDatabase()
