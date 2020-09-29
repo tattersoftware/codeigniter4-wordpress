@@ -3,8 +3,9 @@
 // Bootstrap CodeIgniter
 require_once HOMEPATH . 'vendor/codeigniter4/codeigniter4/system/Test/bootstrap.php';
 
-// Locate the installation directory
+// Set up the installation directory
 defined('WORDPRESSPATH') || define('WORDPRESSPATH', HOMEPATH . 'build/wordpress/');
+is_dir(WORDPRESSPATH) || mkdir(WORDPRESSPATH);
 
 // Download the latest WordPress
 $script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp core download' .
@@ -13,7 +14,11 @@ $script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp core download' .
 	' --force'
 );
 echo $script . PHP_EOL;
-passthru($script);
+passthru($script, $return);
+if ($return !== 0)
+{
+	exit($return);
+}
 
 // Create the config file
 $script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp config create' .
@@ -24,7 +29,11 @@ $script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp config create' .
 	' --dbpass=' . escapeshellarg($_ENV['DB_PASS']) .
 	' --force'
 );
-passthru($script);
+passthru($script, $return);
+if ($return !== 0)
+{
+	exit($return);
+}
 
 // Install WordPress
 $script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp core install' .
@@ -37,4 +46,8 @@ $script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp core install' .
 	' --skip-email'
 );
 echo $script . PHP_EOL;
-passthru($script);
+passthru($script, $return);
+if ($return !== 0)
+{
+	exit($return);
+}
