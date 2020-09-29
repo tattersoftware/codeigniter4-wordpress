@@ -23,10 +23,8 @@ class WordPressTestCase extends CIUnitTestCase
 
 	/**
 	 * Sets up the wordpress database group.
-	 *
-	 * @return $this
 	 */
-	protected function addDBGroup(): void
+	protected function addDBGroup()
 	{
 		$config                        = config('Database');
 		$config->wordpress['DBDriver'] = 'Tatter\WordPress\Database';
