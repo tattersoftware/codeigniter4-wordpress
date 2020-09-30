@@ -10,10 +10,12 @@ parameters:
 		- src/Config/Routes.php
 		- src/Views/*
 	ignoreErrors:
-		- '#Access to an undefined property Tatter\\WordPress\\Database\\ConfigReader::\$[a-z]+#'
+		- '#Access to an undefined property Tatter\\WordPress\\Database\\ConfigReader::\$[A-Za-z]+#'
+		- '#Constant WORDPRESSPATH not found#'
 	scanDirectories:
 		- vendor/codeigniter4/codeigniter4/system/Helpers
 	dynamicConstantNames:
 		- APP_NAMESPACE
 		- CI_DEBUG
 		- ENVIRONMENT
+		- WORDPRESSPATH

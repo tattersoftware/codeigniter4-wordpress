@@ -3,52 +3,33 @@
 use CodeIgniter\Config\Config;
 use CodeIgniter\Test\CIUnitTestCase;
 use Tests\Support\Config\Database;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 
 class WordPressTestCase extends CIUnitTestCase
 {
 	/**
-	 * @var vfsStreamDirectory|null
-	 */
-	protected $root;
-
-	/**
-	 * Path to the virtualized WordPress config file
+	 * Path to the WordPress config file
 	 *
 	 * @var string
 	 */
-	protected $WPConfig;
+	protected $WPConfig = WORDPRESSPATH . 'wp-config.php';
 
 	protected function setUp(): void
 	{
 		parent::setUp();
-
 		Config::reset();
 
-		// Start the virtual filesystem
-		$this->root = vfsStream::setup();
-
-		// Copy in WordPress core from Composer
-		vfsStream::copyFromFileSystem(HOMEPATH . 'vendor/johnpbloch/wordpress-core', $this->root);
-
-		// Inject our WordPress config file
-		$this->WPConfig = $this->root->url() . '/wp-config.php';
-		copy(SUPPORTPATH . 'wp-config.php', $this->WPConfig);
-
-		// Set up our test database configuration
-		$config = config('Database');
-		$config->wordpress = [
-			'DBDriver' => 'Tatter\WordPress\Database',
-			'WPConfig' => SUPPORTPATH . 'wp-config.php',
-		];
-		Config::injectMock('Database', $config);
+		$this->addDBGroup();
 	}
 
-	protected function tearDown(): void
+	/**
+	 * Sets up the wordpress database group.
+	 */
+	protected function addDBGroup()
 	{
-		parent::tearDown();
+		$config                        = config('Database');
+		$config->wordpress['DBDriver'] = 'Tatter\WordPress\Database';
+		$config->wordpress['WPConfig'] = $this->WPConfig;
 
-		$this->root = null;
+		Config::injectMock('Database', $config);
 	}
 }
