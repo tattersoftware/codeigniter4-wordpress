@@ -21,7 +21,7 @@ class Post extends Entity
 	 *
 	 * @return MetaHandler
 	 */
-	protected function getMeta(): MetaHandler
+	public function getMeta(): MetaHandler
 	{
 		// If a MetaHandler is not set then initialize one
 		if (is_null($this->meta))

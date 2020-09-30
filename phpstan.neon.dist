@@ -11,6 +11,7 @@ parameters:
 		- src/Views/*
 	ignoreErrors:
 		- '#Access to an undefined property Tatter\\WordPress\\Database\\ConfigReader::\$[A-Za-z]+#'
+		- '#Access to an undefined property Tatter\\WordPress\\Structures\\MetaHandler::\$[A-Za-z_]+#'
 		- '#Constant WORDPRESSPATH not found#'
 	scanDirectories:
 		- vendor/codeigniter4/codeigniter4/system/Helpers

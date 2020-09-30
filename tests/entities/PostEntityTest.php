@@ -27,7 +27,7 @@ class PostEntityTest extends WordPressTestCase
 
 	public function testGetMetaReturnsHandler()
 	{
-		$result = $this->post->meta;
+		$result = $this->post->getMeta();
 
 		$this->assertInstanceOf(MetaHandler::class, $result);
 	}

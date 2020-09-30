@@ -1,4 +1,4 @@
-<?php namespace Tatter\Wordpress\Structures;
+<?php namespace Tatter\WordPress\Structures;
 
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\Exceptions\DataException;
@@ -168,7 +168,7 @@ class MetaHandler
 		}
 
 		// Add the new ID to the row and cache it
-		$row[$this->primaryKey()] = $this->builder->db->insertID();
+		$row[$this->primaryKey()] = $this->builder->db()->insertID();
 		$this->rows[]             = $row;
 
 		return $row;
@@ -194,7 +194,7 @@ class MetaHandler
 
 		// Build the inputs
 		$where = [
-			$this->primaryKey() => $this->row[$i][$this->primaryKey()],
+			$this->primaryKey() => $this->rows[$i][$this->primaryKey()],
 		];
 		$set = [
 			'meta_value' => $value,
@@ -230,7 +230,7 @@ class MetaHandler
 
 		// Build the inputs
 		$where = [
-			$this->primaryKey() => $this->row[$i][$this->primaryKey()],
+			$this->primaryKey() => $this->rows[$i][$this->primaryKey()],
 		];
 
 		// Delete it
@@ -293,14 +293,10 @@ class MetaHandler
 	 *
 	 * @param string $key
 	 *
-	 * @return $this
-	 *
 	 * @throws DatabaseException
 	 */
-	public function __unset(string $key): self
+	public function __unset(string $key)
 	{
 		$this->has($key) && $this->delete($key);
-
-		return $this;
 	}
 }
