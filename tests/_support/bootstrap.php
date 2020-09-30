@@ -5,7 +5,7 @@ require_once HOMEPATH . 'vendor/codeigniter4/codeigniter4/system/Test/bootstrap.
 
 // Set up the installation directory
 defined('WORDPRESSPATH') || define('WORDPRESSPATH', HOMEPATH . 'build/wordpress/');
-is_dir(WORDPRESSPATH) || mkdir(WORDPRESSPATH);
+is_dir(WORDPRESSPATH) || mkdir(WORDPRESSPATH, 0775, true);
 
 // Download the latest WordPress
 $script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp core download' .
