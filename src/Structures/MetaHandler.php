@@ -163,7 +163,7 @@ class MetaHandler
 		// Insert it
 		if (! $this->builder->insert($row))
 		{
-			$error = $this->builder->error();
+			$error = $this->builder->db()->error();
 			throw new DatabaseException($error['message']);
 		}
 
@@ -203,7 +203,7 @@ class MetaHandler
 		// Update it
 		if (! $this->builder->update($set, $where))
 		{
-			$error = $this->builder->error();
+			$error = $this->builder->db()->error();
 			throw new DatabaseException($error['message']);
 		}
 
@@ -216,7 +216,7 @@ class MetaHandler
 	/**
 	 * Deletes the first occurence of a key.
 	 *
-	 * @param string     $key
+	 * @param string $key
 	 *
 	 * @throws DataException
 	 * @throws DatabaseException
@@ -236,7 +236,7 @@ class MetaHandler
 		// Delete it
 		if (! $this->builder->delete($where))
 		{
-			$error = $this->builder->error();
+			$error = $this->builder->db()->error();
 			throw new DatabaseException($error['message']);
 		}
 
