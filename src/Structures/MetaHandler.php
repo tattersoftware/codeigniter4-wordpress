@@ -168,7 +168,7 @@ class MetaHandler
 		}
 
 		// Add the new ID to the row and cache it
-		$row[$this->primaryKey()] = $this->builder->db()->insertID();
+		$row[$this->primaryKey()] = $this->builder->db()->insertID(); // @phpstan-ignore-line
 		$this->rows[]             = $row;
 
 		return $row;
