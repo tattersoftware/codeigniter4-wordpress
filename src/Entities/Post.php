@@ -2,37 +2,34 @@
 
 use CodeIgniter\Entity;
 use Tatter\WordPress\Models\PostModel;
+use Tatter\WordPress\Structures\MetaHandler;
 
 class Post extends Entity
 {
 	protected $dates = ['post_date', 'post_date_gmt', 'post_modified', 'post_modified_gmt'];
 
 	/**
-	 * Cache for rows from postmeta.
+	 * Handler for postmeta.
 	 *
-	 * @var stdClass|null
+	 * @var MetaHandler|null
 	 */
 	protected $meta;
 
 	/**
-	 * Returns or loads metadata from the related table.
+	 * Returns the MetaHandler. Uses the database connection
+	 * from PostModel to be sure the group matches.
 	 *
-	 * @return stdClass|null
+	 * @return MetaHandler
 	 */
-	protected function getMeta(): ?\stdClass
+	public function getMeta(): MetaHandler
 	{
-		// If meta is not set then laod it on the fly
-		if ($this->meta === null)
+		// If a MetaHandler is not set then initialize one
+		if (is_null($this->meta))
 		{
-			$this->meta = new \stdClass();
-
-			foreach (model(PostModel::class)
-				->builder('postmeta')
-				->where(['post_id' => $this->attributes['ID']])
-				->get()->getResultArray() as $row)
-			{
-				$this->meta->$row['meta_key'] = $row['meta_value'];
-			}
+			$this->meta = new MetaHandler(
+				model(PostModel::class)->db->table('postmeta'),
+				['post_id' => $this->attributes['ID']]
+			);
 		}
 
 		return $this->meta;

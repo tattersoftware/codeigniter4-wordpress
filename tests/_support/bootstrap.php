@@ -35,6 +35,14 @@ if ($return !== 0)
 	exit($return);
 }
 
+// Clean the database (if it exists)
+$script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp db clean' .
+	' --path=' . WORDPRESSPATH .
+	' --yes'
+);
+echo $script . PHP_EOL;
+passthru($script, $return);
+
 // Install WordPress
 $script = escapeshellcmd(HOMEPATH . 'vendor/bin/wp core install' .
 	' --path=' . WORDPRESSPATH .

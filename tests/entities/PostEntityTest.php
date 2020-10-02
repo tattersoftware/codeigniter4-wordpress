@@ -2,6 +2,7 @@
 
 use Tatter\WordPress\Entities\Post;
 use Tatter\WordPress\Models\PostModel;
+use Tatter\WordPress\Structures\MetaHandler;
 use Tests\Support\WordPressTestCase;
 
 class PostEntityTest extends WordPressTestCase
@@ -24,17 +25,10 @@ class PostEntityTest extends WordPressTestCase
 		$this->post  = $this->model->first();
 	}
 
-	public function testGetMetaReturnsStdClass()
+	public function testGetMetaReturnsHandler()
 	{
-		$result = $this->post->meta;
+		$result = $this->post->getMeta();
 
-		$this->assertInstanceOf('stdClass', $result);
-	}
-
-	public function testMetaHasValues()
-	{
-		$result = $this->post->meta;
-dd($this->post);
-		$this->assertInstanceOf('stdClass', $result);
+		$this->assertInstanceOf(MetaHandler::class, $result);
 	}
 }
