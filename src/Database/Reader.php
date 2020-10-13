@@ -6,7 +6,7 @@ use CodeIgniter\Files\File;
 /**
  * Class to extract database values from wp-config.php
  */
-class ConfigReader
+class Reader
 {
 	/**
 	 * Translation of WP to CI config

@@ -34,7 +34,7 @@ class Connection extends \CodeIgniter\Database\MySQLi\Connection
 		}
 
 		// Use the reader to extract values
-		$reader = new ConfigReader($params['WPConfig']);
+		$reader = new Reader($params['WPConfig']);
 
 		// Make sure any parameters that were specified override the WordPress values
 		$params = array_merge($reader->toParams(), $params);
