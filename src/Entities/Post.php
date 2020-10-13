@@ -8,6 +8,34 @@ class Post extends Entity
 {
 	protected $dates = ['post_date', 'post_date_gmt', 'post_modified', 'post_modified_gmt'];
 
+    /**
+     * Array of field names and the type of value to cast them as
+     * when they are accessed.
+     */
+    protected $casts = [
+        'post_author'   => 'int',
+        'post_parent'   => 'int',
+        'menu_order'    => 'int',
+        'comment_count' => 'int',
+    ];
+
+	/**
+	 * Default attributes.
+	 *
+	 * @var array<string, mixed>
+	 */
+	protected $attributes = [
+		'post_author'    => 1,
+		'post_content'   => '',
+		'post_excerpt'   => '',
+		'post_status'    => 'inherit',
+		'comment_status' => 'open',
+		'ping_status'    => 'closed',
+		'post_parent'    => 0,
+		'menu_order'     => 0,
+		'comment_count'  => 0,
+	];
+
 	/**
 	 * Handler for postmeta.
 	 *

@@ -58,7 +58,7 @@ class Reader
 	 */
 	protected function parse(): self
 	{
-		$lines = file($this->file->__toString());
+		$lines = file((string) $this->file);
 
 		// Match lines like: define( 'DB_NAME', 'database_name_here' );
 		$matched = preg_grep("/define\(/", $lines);
@@ -112,11 +112,11 @@ class Reader
 	 * @return string
 	 * @throws ReaderException
 	 */
-	public function getDirectory(): File
+	public function getDirectory(): string
 	{
 		if (! isset($this->attributes['ABSPATH']))
 		{
-			throw ReaderException::forDirectoryFail($this->file->__toString());
+			throw ReaderException::forDirectoryFail((string) $this->file);
 		}
 
 		$path = $this->file->getPath() . DIRECTORY_SEPARATOR . $this->attributes['ABSPATH'];
