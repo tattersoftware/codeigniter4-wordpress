@@ -16,20 +16,5 @@ class WordPressTestCase extends CIUnitTestCase
 	protected function setUp(): void
 	{
 		parent::setUp();
-		Config::reset();
-
-		$this->addDBGroup();
-	}
-
-	/**
-	 * Sets up the wordpress database group.
-	 */
-	protected function addDBGroup()
-	{
-		$config                        = config('Database');
-		$config->wordpress['DBDriver'] = 'Tatter\WordPress\Database';
-		$config->wordpress['WPConfig'] = $this->WPConfig;
-
-		Config::injectMock('Database', $config);
 	}
 }

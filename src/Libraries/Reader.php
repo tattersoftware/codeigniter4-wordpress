@@ -1,28 +1,13 @@
-<?php namespace Tatter\WordPress\Database;
+<?php namespace Tatter\WordPress\Libraries;
 
 use CodeIgniter\Files\Exceptions\FileNotFoundException;
 use CodeIgniter\Files\File;
 
 /**
- * Class to extract database values from wp-config.php
+ * Class to extract values from wp-config.php
  */
 class Reader
 {
-	/**
-	 * Translation of WP to CI config
-	 *
-	 * @var array<string, string>
-	 */
-	protected $parseKeys = [
-		'DB_NAME'      => 'database',
-		'DB_USER'      => 'username',
-		'DB_PASSWORD'  => 'password',
-		'DB_HOST'      => 'hostname',
-		'DB_CHARSET'   => 'charset',
-		'DB_COLLATE'   => 'DBCollat',
-		'table_prefix' => 'DBPrefix',
-	];
-
 	/**
 	 * File instance for wp-config.php
 	 *
@@ -52,25 +37,6 @@ class Reader
 	}
 
 	/**
-	 * Returns translated keys compatible with app/Config/Database.php
-	 *
-	 * @return array<string, mixed>
-	 */
-	public function toParams(): array
-	{
-		$return = [];
-		foreach ($this->parseKeys as $from => $to)
-		{
-			if (isset($this->attributes[$from]))
-			{
-				$return[$to] = $this->attributes[$from];
-			}
-		}
-
-		return $return;
-	}
-
-	/**
 	 * Parses database values from the file.
 	 *
 	 * @return $this
@@ -80,7 +46,7 @@ class Reader
 		$lines = file($this->file->__toString());
 
 		// Match lines like: define( 'DB_NAME', 'database_name_here' );
-		$matched = preg_grep("/^define\(/", $lines);
+		$matched = preg_grep("/define\(/", $lines);
 
 		// Explode each line and extract values
 		foreach ($matched as $line)
@@ -129,8 +95,6 @@ class Reader
 
 		return null;
 	}
-
-	//--------------------------------------------------------------------
 
 	/**
 	 * Magic method to all setting properties.
