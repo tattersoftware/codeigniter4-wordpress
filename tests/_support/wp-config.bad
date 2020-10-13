@@ -1,0 +1,12 @@
+<?php
+/**
+ * This config file does not have enough properties
+ * for Reader to detect it as a valid configuration.
+ */
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'testing_database' );
+
+/** MySQL database username */
+define( 'DB_USER', 'testing_user' );

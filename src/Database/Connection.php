@@ -21,6 +21,13 @@ class Connection extends \CodeIgniter\Database\MySQLi\Connection
 	];
 
 	/**
+	 * Reader for the specific wp-config used
+	 *
+	 * @var Reader
+	 */
+	public $reader;
+
+	/**
 	 * Parses and stores WordPress connection settings.
 	 *
 	 * @param array $params
@@ -30,11 +37,11 @@ class Connection extends \CodeIgniter\Database\MySQLi\Connection
 	{
 		if (empty($params['WPConfig']))
 		{
-			throw new DatabaseException('Missing config parameter for Tatter\WordPress database!');
+			throw new DatabaseException('Missing WPConfig parameter for Tatter\WordPress database!');
 		}
 
 		// Use the Reader to extract from wp-config
-		$reader = new Reader($params['WPConfig']);
+		$this->reader = new Reader($params['WPConfig']);
 		foreach (self::$readerKeys as $wp => $ci)
 		{
 			// Do not overwrite passed values
@@ -43,7 +50,7 @@ class Connection extends \CodeIgniter\Database\MySQLi\Connection
 				continue;
 			}
 
-			$params[$ci] = $reader->$wp;
+			$params[$ci] = $this->reader->$wp;
 		}
 
 		// Create the class aliases

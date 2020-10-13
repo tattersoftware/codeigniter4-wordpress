@@ -16,5 +16,6 @@ class WordPressTestCase extends CIUnitTestCase
 	protected function setUp(): void
 	{
 		parent::setUp();
+		Config::reset();
 	}
 }

@@ -2,6 +2,7 @@
 
 use CodeIgniter\Files\Exceptions\FileNotFoundException;
 use CodeIgniter\Files\File;
+use Tatter\WordPress\Exceptions\ReaderException;
 
 /**
  * Class to extract values from wp-config.php
@@ -27,13 +28,27 @@ class Reader
 	 * parses out the values.
 	 *
 	 * @param string $path
-	 * @throws FileNotFoundException
+	 * @throws ReaderException
 	 */
 	public function __construct(string $path)
 	{
-		$this->file = new File($path, true);
+		// Catch file exceptions to re-throw as ReaderException
+		try
+		{
+			$this->file = new File($path, true);
+		}
+		catch (FileNotFoundException $e)
+		{
+			throw new ReaderException($e->getMessage(), $e->getCode(), $e);
+		}
 
 		$this->parse();
+
+		// Make sure a minimum number of properties were detected as a sanity check
+		if (count($this->attributes) < 8)
+		{
+			throw ReaderException::forParseFail($path);
+		}
 	}
 
 	/**
@@ -80,6 +95,46 @@ class Reader
 	//--------------------------------------------------------------------
 
 	/**
+	 * Returns this File instance for the
+	 * wp-config.php used.
+	 *
+	 * @return File
+	 */
+	public function getFile(): File
+	{
+		return $this->file;
+	}
+
+	/**
+	 * Deteremines the WordPress installation
+	 * directory using ABSPATH.
+	 *
+	 * @return string
+	 * @throws ReaderException
+	 */
+	public function getDirectory(): File
+	{
+		if (! isset($this->attributes['ABSPATH']))
+		{
+			throw ReaderException::forDirectoryFail($this->file->__toString());
+		}
+
+		$path = $this->file->getPath() . DIRECTORY_SEPARATOR . $this->attributes['ABSPATH'];
+		$path = realpath($path) ?: $path;
+		$path = rtrim($path, '/\\ ') . DIRECTORY_SEPARATOR;
+
+		if (! is_dir($path))
+		{
+			$e = FileNotFoundException::forFileNotFound($path);
+			throw new ReaderException($e->getMessage(), $e->getCode(), $e);
+		}
+
+		return $path;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Magic method to allow retrieval of attributes.
 	 *
 	 * @param string $key
@@ -97,7 +152,7 @@ class Reader
 	}
 
 	/**
-	 * Magic method to all setting properties.
+	 * Magic method for setting properties.
 	 *
 	 * @param string $key
 	 * @param mixed  $value
