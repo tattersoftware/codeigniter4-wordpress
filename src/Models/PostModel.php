@@ -2,10 +2,18 @@
 
 use CodeIgniter\Files\Exceptions\FileNotFoundException;
 use CodeIgniter\Files\File;
+use Tatter\WordPress\Database\Connection;
 use Tatter\WordPress\Entities\Post;
 
 class PostModel extends BaseModel
 {
+	/**
+	 * The WordPress database connection
+	 *
+	 * @var Connection
+	 */
+	protected $db;
+
 	protected $table      = 'posts';
 	protected $primaryKey = 'ID';
 	protected $returnType = 'Tatter\WordPress\Entities\Post';

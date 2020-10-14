@@ -10,9 +10,12 @@ parameters:
 		- src/Config/Routes.php
 		- src/Views/*
 	ignoreErrors:
-		- '#Access to an undefined property Tatter\\WordPress\\Database\\ConfigReader::\$[A-Za-z]+#'
-		- '#Access to an undefined property Tatter\\WordPress\\Structures\\MetaHandler::\$[A-Za-z_]+#'
 		- '#Constant WORDPRESSPATH not found#'
+		- '#Unsafe usage of new static\(\)#'
+	universalObjectCratesClasses:
+		- CodeIgniter\Entity
+		- Tatter\WordPress\Libraries\Reader
+		- Tatter\WordPress\Structures\MetaHandler
 	scanDirectories:
 		- vendor/codeigniter4/codeigniter4/system/Helpers
 	dynamicConstantNames:
