@@ -5,7 +5,23 @@ use CodeIgniter\Database\Exceptions\DatabaseException;
 class Connection extends \CodeIgniter\Database\MySQLi\Connection
 {
 	/**
-	 * Parse and store WordPress connection settings.
+	 * Aliases the companion classes to their MySQLi equivalents.
+	 */
+	private static function aliasClasses()
+	{
+		foreach (['Builder', 'Forge', 'PreparedQuery', 'Result', 'Utils'] as $name)
+		{
+			$original = 'CodeIgniter\Database\MySQLi\\' . $name;
+			$alias    = 'Tatter\WordPress\Database\\' . $name;
+			if (! class_exists($alias))
+			{
+				class_alias($original, $alias);
+			}
+		}
+	}
+
+	/**
+	 * Parses and stores WordPress connection settings.
 	 *
 	 * @param array $params
 	 * @throws DatabaseException
@@ -22,6 +38,9 @@ class Connection extends \CodeIgniter\Database\MySQLi\Connection
 
 		// Make sure any parameters that were specified override the WordPress values
 		$params = array_merge($reader->toParams(), $params);
+
+		// Create the class aliases
+		self::aliasClasses();
 
 		parent::__construct($params);
 	}
