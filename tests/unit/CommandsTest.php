@@ -63,7 +63,7 @@ class CommandsTest extends WordPressTestCase
 		]);
 		$this->assertIsInt($postId);
 
-		command('posts:delete ' . $postId);
+		command('posts:delete ' . (string) $postId);
 		$result = $this->getBuffer();
 		$this->assertStringContainsString(lang('WordPress.postDeleted', ['foobar']), $result);
 
