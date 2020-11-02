@@ -18,7 +18,8 @@ class PostsDelete extends BaseCommand
 	public function run(array $params)
 	{
 		// Make sure there is at least one ID
-		if (! $postId = array_shift($params))
+		$postId = array_shift($params);
+		if (! is_numeric($postId))
 		{
 			$this->call('posts:list');
 			CLI::write(lang('WordPress.commandMissingId'), 'red');
