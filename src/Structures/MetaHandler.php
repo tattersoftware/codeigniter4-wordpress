@@ -44,6 +44,8 @@ class MetaHandler
 		$this->builder = $builder;
 		$this->filter  = $filter;
 		$this->rows    = $rows;
+
+		helper('wordpress');
 	}
 
 	/**
@@ -58,7 +60,7 @@ class MetaHandler
 	}
 
 	/**
-	 * Returns the raw $rows array.
+	 * Returns the raw $rows array. Does not unserialze.
 	 *
 	 * @return array
 	 */
@@ -126,7 +128,7 @@ class MetaHandler
 			return null;
 		}
 
-		return $this->rows[$i]['meta_value'];
+		return maybe_unserialize($this->rows[$i]['meta_value']);
 	}
 
 	/**
@@ -158,7 +160,7 @@ class MetaHandler
 		// Build the new row
 		$row               = $this->filter;
 		$row['meta_key']   = $key;
-		$row['meta_value'] = $value;
+		$row['meta_value'] = is_serialized($value) ? $value : maybe_serialize($value);
 
 		// Insert it
 		if (! $this->builder->insert($row))
@@ -191,6 +193,7 @@ class MetaHandler
 		{
 			throw new DataException('Key does not exist: ' . $key);
 		}
+		$value = is_serialized($value) ? $value : maybe_serialize($value);
 
 		// Build the inputs
 		$where = [
@@ -240,7 +243,7 @@ class MetaHandler
 			throw new DatabaseException($error['message']);
 		}
 
-		// Remove the cached row
+		// Remove the stored row
 		unset($this->rows[$i]);
 	}
 

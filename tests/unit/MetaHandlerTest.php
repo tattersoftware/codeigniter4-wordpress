@@ -96,4 +96,33 @@ class MetaHandlerTest extends WordPressTestCase
 
 		$this->assertEquals($expected, $result);
 	}
+
+	public function testSerializes()
+	{
+		$expected = 'a:1:{s:3:"bar";s:3:"bam";}';
+
+		$this->meta->foo = [
+			'bar' => 'bam',
+		];
+
+		$rows   = $this->meta->getRows();
+		$result = $rows[1]['meta_value'];
+
+		$this->assertIsString($result);
+		$this->assertEquals($expected, $result);
+	}
+
+	public function testUnserializes()
+	{
+		$expected = [
+			'bar' => 'bam',
+		];
+
+		$this->meta->foo = $expected;
+
+		$result = $this->meta->foo;
+
+		$this->assertIsArray($result);
+		$this->assertEquals($expected, $result);
+	}
 }

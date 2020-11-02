@@ -17,6 +17,7 @@ parameters:
 		- Tatter\WordPress\Libraries\Reader
 		- Tatter\WordPress\Structures\MetaHandler
 	scanDirectories:
+		- src/Helpers
 		- vendor/codeigniter4/codeigniter4/system/Helpers
 	dynamicConstantNames:
 		- APP_NAMESPACE
