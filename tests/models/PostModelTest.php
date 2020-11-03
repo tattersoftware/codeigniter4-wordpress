@@ -36,6 +36,19 @@ class PostModelTest extends WordPressTestCase
 		$this->assertEquals('hello-world', $result[0]->post_name);
 	}
 
+	public function testCanInsert()
+	{
+		$postId = $this->model->insert([
+			'post_title'   => 'Test Post',
+			'post_date'    => date('Y-m-d H:i:s'),
+			'post_content' => '<p>This is how we do it!</p>',
+		]);
+		$this->assertIsInt($postId);
+
+		$post = $this->model->find($postId);
+		$this->assertInstanceOf(Post::class, $post);
+	}
+
 	public function testFromFileCreatesPost()
 	{
 		$result = $this->model->fromFile($this->path);
