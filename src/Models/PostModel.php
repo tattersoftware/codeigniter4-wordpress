@@ -68,11 +68,11 @@ class PostModel extends BaseModel
 	 * @throws FileNotFoundException, \RuntimeException
 	 */
 	public function fromFile(string $path): Post
-    {
-    	$path = realpath($path) ?: $path;
+	{
+		$path = realpath($path) ?: $path;
 
-    	// Get and verify the file and target folder
-    	$file = new File($path, true);
+		// Get and verify the file and target folder
+		$file = new File($path, true);
 		$base = $this->db->reader->getDirectory();
 		$dir  = $base . 'wp-content' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR;
 
@@ -100,5 +100,5 @@ class PostModel extends BaseModel
 			'post_mime_type' => $file->getMimeType(),
 			'guid'           => base_url(str_replace($base, '', $path)),
 		]);
-    }
+	}
 }

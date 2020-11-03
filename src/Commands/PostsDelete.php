@@ -37,7 +37,7 @@ class PostsDelete extends BaseCommand
 			else
 			{
 				model(PostModel::class)->delete($postId);
-				CLI::write(lang('WordPress.postDeleted', [$post->post_title]), 'green');				
+				CLI::write(lang('WordPress.postDeleted', [$post->post_title]), 'green');
 			}
 		} while ($postId = array_shift($params));
 	}
