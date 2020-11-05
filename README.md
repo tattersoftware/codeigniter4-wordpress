@@ -59,3 +59,12 @@ echo $post->meta->_wp_page_template; // 'default'
 // Update post metadata
 $post->meta->_wp_page_template = 'mobile';
 ```
+
+## Commands
+
+There are a few commands to make it easier to interact with your configuration - these are
+also a great way to make sure your WordPress database is set up correctly.
+
+* `posts:list` - Lists all Posts in a table format
+* `posts:show [postId]` - Displays details for a single Post
+* `posts:delete [postId]...` - Deletes one or more Posts by their ID
