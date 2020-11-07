@@ -40,7 +40,7 @@ class PostModelTest extends WordPressTestCase
 	{
 		if (getenv('CI'))
 		{
-			$this->markTestSkipped('Inserts are failure inexplicably during GitHub Actions');
+			$this->markTestSkipped('Inserts are failing inexplicably during GitHub Actions');
 		}
 
 		$postId = $this->model->insert([
