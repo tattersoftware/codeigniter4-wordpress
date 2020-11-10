@@ -32,11 +32,12 @@ class TestClassesTest extends CIDatabaseTestCase
 		$faker      = new PostFaker();
 		$fabricator = new Fabricator($faker);
 
+		/** @var Post $result */
 		$result = $fabricator->create();
 		$this->assertInstanceOf(Post::class, $result);
 
 		$this->db = db_connect('wordpress');
 		$this->seeInDatabase('posts', ['post_title' => $result->post_title]);
-		$this->db = null;
+		$this->db = db_connect($this->DBGroup);
 	}
 }
