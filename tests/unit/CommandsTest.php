@@ -59,7 +59,7 @@ class CommandsTest extends WordPressTestCase
 	{
 		if (getenv('CI'))
 		{
-			$this->markTestSkipped('Inserts are failure inexplicably during GitHub Actions');
+			$this->markTestSkipped('Inserts are failing inexplicably during GitHub Actions');
 		}
 
 		// Create a temporary Post to remove
