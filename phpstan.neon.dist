@@ -14,6 +14,8 @@ parameters:
 		- '#Unsafe usage of new static\(\)#'
 	universalObjectCratesClasses:
 		- CodeIgniter\Entity
+		- CodeIgniter\Entity\Entity
+		- Faker\Generator
 		- Tatter\WordPress\Libraries\Reader
 		- Tatter\WordPress\Structures\MetaHandler
 	scanDirectories:
