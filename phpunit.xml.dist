@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-		bootstrap="vendor/codeigniter4/codeigniter4/system/Test/bootstrap.php"
+		bootstrap="tests/_support/bootstrap.php"
 		backupGlobals="false"
 		beStrictAboutCoversAnnotation="true"
 		beStrictAboutOutputDuringTests="true"
@@ -87,6 +87,12 @@
 
 		<!-- https://getcomposer.org/xdebug -->
 		<env name="COMPOSER_DISABLE_XDEBUG_WARN" value="1"/>
+
+		<!-- WordPress database configuration -->
+		<env name="DB_HOST" value="127.0.0.1"/>
+		<env name="DB_NAME" value="test"/>
+		<env name="DB_USER" value="root"/>
+		<env name="DB_PASS" value=""/>
 
 		<!-- Database configuration -->
 		<env name="database.tests.strictOn" value="true"/>
