@@ -33,7 +33,7 @@
 		"codeigniter4/codeigniter4": "dev-develop",
 		"fakerphp/faker": "^1.10",
 		"phpunit/phpunit": "^8.5",
-		"phpstan/phpstan": "^0.12",
+		"phpstan/phpstan": "^1.1",
 		"squizlabs/php_codesniffer": "^3.5",
 		"codeigniter4/codeigniter4-standard": "^1.0",
 		"wp-cli/wp-cli-bundle": "^2.4"
